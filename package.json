@@ -1,0 +1,21 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alchangyan/webpack4-skeleton.git"
+  },
+  "author": "Artem Alchangyan",
+  "license": "UNLICENCED",
+  "bugs": {
+    "url": "https://github.com/alchangyan/webpack4-skeleton/issues"
+  },
+  "homepage": "https://github.com/alchangyan/webpack4-skeleton#readme"
+}
