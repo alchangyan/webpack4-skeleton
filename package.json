@@ -6,6 +6,8 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.dev.js",
     "test": "test"
   },
   "repository": {
