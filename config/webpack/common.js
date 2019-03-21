@@ -1,25 +1,13 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-
+const env = require('dotenv').config({path: '.env'}).parsed;
 const path = require('path');
 
+const {ROOT_FOLDER, BUILD_FOLDER_NAME} = env;
+
 module.exports = {
-  mode: 'development',
   entry: "./src/index.js",
   output: {
-    "path": path.join(__dirname, 'build'),
+    "path": path.join(__dirname, ROOT_FOLDER, BUILD_FOLDER_NAME),
     filename: 'first-bundle.js'
-  },
-  /* Dev server */
-  devServer: {
-    contentBase: path.join(__dirname, 'build'),
-    hot: true,
-    hotOnly: true,
-    open: true,
-    overlay: true,
-    port: 4000
   },
   module: {
     rules: [
@@ -61,22 +49,9 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader'
       },
-      /* HTML loader */
-      /* {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'html-loader'
-        ]
-      } */
     ]
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new CopyPlugin([{ from: 'static', to: 'static' }]),
-    new HtmlWebpackPlugin({template: './public/index.html'}),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  }
 }
