@@ -1,23 +1,27 @@
-import path from 'path'
-import express from 'express'
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
+import express from 'express';
+import path from 'path';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
 import config from '../webpack/development.js'
 
-const app = express(),
-            DIST_DIR = __dirname,
-            HTML_FILE = path.join(DIST_DIR, 'index.html'),
-            compiler = webpack(config)
+const app = express();
+const DIST_DIR = __dirname;
+const HTML_FILE = path.join(DIST_DIR, 'index.html');
+const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
-}))
+  publicPath: config.output.publicPath,
+  logLevel: 'silent',
+  reporter: () => {}
+}));
 
-app.use(webpackHotMiddleware(compiler))
+app.use(webpackHotMiddleware(compiler, {
+  log: false
+}));
 
 app.get('*', (req, res, next) => {
-  console.log(compiler.outputFileSystem)
   compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
     if (err) {
       return next(err)
@@ -26,12 +30,12 @@ app.get('*', (req, res, next) => {
     res.send(result)
     res.end()
   })
-  // res.end()
-})
+});
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
-    console.log(`App listening to ${PORT}....`)
-    console.log('Press Ctrl+C to quit.')
+  console.clear();
+  console.log(`App listening to ${PORT}`);
+  console.log('Press Ctrl+C to quit.');
 })

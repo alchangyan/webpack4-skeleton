@@ -8,6 +8,12 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
 module.exports = Object.assign(commonConfig, {
   mode: 'development',
+  entry: {
+    main: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&noInfo=true&quiet=true',
+      './src/index.js'
+    ]
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env": env
@@ -17,5 +23,7 @@ module.exports = Object.assign(commonConfig, {
     new InterpolateHtmlPlugin({
       STATIC_FOLDER: 'static',
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 })
