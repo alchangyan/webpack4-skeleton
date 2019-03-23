@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
+import open from 'open';
 import config from '../webpack/development.js'
 
 const app = express();
@@ -38,4 +38,7 @@ app.listen(PORT, () => {
   console.clear();
   console.log(`App listening to ${PORT}`);
   console.log('Press Ctrl+C to quit.');
+  // opens the url in the default browser 
 })
+
+open(`http://localhost:${PORT}`);
