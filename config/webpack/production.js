@@ -1,20 +1,27 @@
-const commonConfig = require('./common');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const env = require('dotenv').config({path: '.env'}).parsed;
+const merge = require('webpack-merge');
+const common = require('./common');
 
-module.exports = Object.assign(commonConfig, {
+/* Plugins */
+const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+
+module.exports = merge(common, {
   mode: 'production',
+  entry: "./src/index.js",
+  optimization: {
+    mangleWasmImports: true
+  },
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env": env
+    new BabelMinifyPlugin({
+      mangle: { topLevel: true }
     }),
-    new CopyPlugin([{ from: 'static', to: 'static' }]),
-    new HtmlWebpackPlugin({template: './src/index.html' }),
-    new InterpolateHtmlPlugin({
-      STATIC_FOLDER: 'static',
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
     }),
+    /* for serving with Content-Encoding */
+    // new CompressionPlugin({
+    //   test: /\.js(\?.*)?$/i
+    // })
   ]
 })

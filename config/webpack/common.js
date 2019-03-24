@@ -1,10 +1,16 @@
-const env = require('dotenv').config({path: '.env'}).parsed;
 const path = require('path');
+const webpack = require('webpack');
 
+/* Plugins */
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const env = require('dotenv').config({path: '.env'}).parsed;
 const { ROOT_FOLDER, BUILD_FOLDER_NAME } = env;
 
 module.exports = {
-  entry: "./src/index.js",
   output: {
     "path": path.join(__dirname, ROOT_FOLDER, BUILD_FOLDER_NAME),
     filename: 'bundle.js',
@@ -72,5 +78,24 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": env
+    }),
+    new CopyPlugin([
+      {
+        from: 'static',
+        to: 'static'
+      }
+    ]),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      minify: true
+    }),
+    new InterpolateHtmlPlugin({
+      STATIC_FOLDER: 'static',
+    }),
+  ]
 }

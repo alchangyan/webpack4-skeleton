@@ -1,12 +1,8 @@
-const commonConfig = require('./common');
+const merge = require('webpack-merge');
+const common = require('./common');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const env = require('dotenv').config({path: '.env'}).parsed;
 
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-
-module.exports = Object.assign(commonConfig, {
+module.exports = merge(common, {
   mode: 'development',
   entry: {
     main: [
@@ -15,14 +11,7 @@ module.exports = Object.assign(commonConfig, {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env": env
-    }),
-    new CopyPlugin([{ from: 'static', to: 'static' }]),
-    new HtmlWebpackPlugin({template: './src/index.html' }),
-    new InterpolateHtmlPlugin({
-      STATIC_FOLDER: 'static',
-    }),
+    new webpack.AutomaticPrefetchPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
