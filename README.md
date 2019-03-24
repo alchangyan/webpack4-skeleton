@@ -17,3 +17,13 @@
 ### Notes
 
 - After production build server runs on 8080 because .env file doesn't included in build.
+
+
+### Build sizes
+
+**dev: 1.1 MB**
+
+**prod: 137 KB**
++ BabelMinifyWebpackPlugin: **136 KB**
++ MiniCssExtractPlugin plugin: **134 KB**
++ HtmlWebpackPlugin -> minify: **78 KB**
