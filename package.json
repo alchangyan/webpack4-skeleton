@@ -43,8 +43,8 @@
   "scripts": {
     "build:app:dev": "webpack --config config/webpack/development.js",
     "build:app:prod": "webpack --config config/webpack/production.js",
-    "build:server:prod": "webpack --mode=production --config config/server/webpack.server.config.js",
-    "build:server:dev": "webpack --mode=development --config config/server/webpack.server.config.js",
+    "build:server:prod": "webpack --mode=production --progress --config config/server/webpack.server.config.js",
+    "build:server:dev": "webpack --mode=development --progress --config config/server/webpack.server.config.js",
     "start": "node build/server.js",
     "build": "npm run build:app:prod && npm run build:server:prod",
     "dev": "npm run build:app:dev && npm run build:server:dev && npm run start",

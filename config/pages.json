@@ -1,0 +1,12 @@
+{
+  "pages": [
+    {
+      "name": "index",
+      "path": "/"
+    },
+    {
+      "name": "main",
+      "path": "/main"
+    }
+  ] 
+}

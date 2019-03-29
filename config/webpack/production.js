@@ -4,11 +4,14 @@ const common = require('./common');
 /* Plugins */
 const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+// const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
-  entry: "./src/index.js",
+  entry: {
+    index: './src/index.js',
+    main: './src/main.js',
+  },
   optimization: {
     mangleWasmImports: true
   },
